@@ -64,7 +64,7 @@ class FormattedData:
 		bestVen = None
 		for key in vendors.keys(): #brute force, could be solved faster given more time
 			if vendors[key] > bestRev:
-				bestRev = 0
+				bestRev = vendors[key]
 				bestVen = key
 
 		return bestVen
@@ -72,18 +72,20 @@ class FormattedData:
 	def mostItemInMonthID(self,itemStr,monthStr):
 		customers = {}
 		for element in self.data:
-			if not element["customerId"] in vendors:
-				customers[element["customerId"]] = 0
-			for item in element["order"]:
-				if item["item"] == itemStr:
-					customers[element["customerId"]] += item["quantity"]
-					break
+			date = element["date"].split('/')
+			if date[0] == monthStr:
+				if not element["customerId"] in vendors:
+					customers[element["customerId"]] = 0
+				for item in element["order"]:
+					if item["item"] == itemStr:
+						customers[element["customerId"]] += item["quantity"]
+						break
 
-		bestRev = 0
-		bestVen = None
-		for key in vendors.keys(): #brute force, could be solved faster given more time
-			if vendors[key] > bestRev:
-				bestRev = 0
-				bestVen = key
+		bestQuant = 0
+		bestCust = None
+		for key in customers.keys(): #brute force, could be solved faster given more time
+			if customers[key] > bestQuant:
+				bestQuant = customers[key]
+				bestCust = key
 
-		return bestVen
+		return bestCust
