@@ -74,7 +74,7 @@ class FormattedData:
 		for element in self.data:
 			date = element["date"].split('/')
 			if date[0] == monthStr:
-				if not element["customerId"] in vendors:
+				if not element["customerId"] in customers:
 					customers[element["customerId"]] = 0
 				for item in element["order"]:
 					if item["item"] == itemStr:
